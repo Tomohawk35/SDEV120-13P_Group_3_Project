@@ -26,10 +26,8 @@ def input_employee_data():
 # The hourly rate should be pulled from a database using the employee ID as the primary key.
 def get_pay_rate(emp_id: int) -> float:
     rate: float = 0.0 # locally defined rate variable for storing the value
-    df = pd.read_csv(rate_table, header=0, index_col=0)
-    rate = df['employee_rate'].loc[emp_id]
-    # print(df)
-    # print(df['employee_rate'].loc[emp_id])
+    df = pd.read_csv(rate_table, header=0, index_col=0) # reads the csv file and stores a dataframe ("table")
+    rate = df['employee_rate'].loc[emp_id] # extracts the rate from the dataframe based on the input employee id
     return rate
 
 
