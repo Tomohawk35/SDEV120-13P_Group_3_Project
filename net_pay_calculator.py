@@ -24,17 +24,25 @@ def input_employee_data():
 
 # Assigned to Tyler Howard
 # The hourly rate should be pulled from a database using the employee ID as the primary key.
+def connect_db() -> pd.DataFrame: #TODO: Add try-except block in case connection fails
+    # database where employee pay rates are stored
+    rate_table: str = "employee_rates.csv"
+
+    # read the csv file and store a dataframe ("table")
+    df: pd.DataFrame = pd.read_csv(rate_table, header=0, index_col=0) 
+    return df
+
 def get_pay_rate(emp_id: int) -> float: 
     rate: float = 0.0 # locally defined rate variable for storing the value
-    df = pd.read_csv(rate_table, header=0, index_col=0) # reads the csv file and stores a dataframe ("table")
+    # df = pd.read_csv(rate_table, header=0, index_col=0) # reads the csv file and stores a dataframe ("table")
+    df = connect_db()
     rate = df['employee_rate'].loc[emp_id] # extracts the rate from the dataframe based on the input employee id
     return rate
 
 # TODO: Need to validate emp_id in case a number is entered that is not in the database. 
 # Maybe include this in the input_employee_data function. 
 
-# TODO: Could break the dataframe initialization out into a separate function
-# and create a list of the possible employee_id's to check against when inputting data
+# TODO: create a list of the possible employee_id's to check against when inputting data
 
 # Assigned to DeMishia jackson
 def calculate_gross_pay():
