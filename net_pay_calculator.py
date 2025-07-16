@@ -12,6 +12,15 @@ rate_table: str = "employee_rates.csv"
 state_tax: float = 0.056
 federal_tax: float = 0.079
 
+# employee data
+first_name: str
+last_name: str
+employee_id: int
+dependents: int
+hours_worked: float
+gross_pay: float
+net_pay: float
+
 
 # Main function is assigned to Ashley Kemp
 def main():
@@ -19,8 +28,11 @@ def main():
 
 
 # Assigned to Fatimatou Ibrahim
+# Input FirstName (string), LastName (string), EmployeeID (integer), NumDependents (integer), HoursWorked (float)
+# Verify inputs
 def input_employee_data():
     pass
+
 
 # Assigned to Tyler Howard
 # The hourly rate should be pulled from a database using the employee ID as the primary key.
@@ -32,12 +44,14 @@ def connect_db() -> pd.DataFrame: #TODO: Add try-except block in case connection
     df: pd.DataFrame = pd.read_csv(rate_table, header=0, index_col=0) 
     return df
 
+
 def get_pay_rate(emp_id: int) -> float: 
     rate: float = 0.0 # locally defined rate variable for storing the value
     # df = pd.read_csv(rate_table, header=0, index_col=0) # reads the csv file and stores a dataframe ("table")
     df = connect_db()
     rate = df['employee_rate'].loc[emp_id] # extracts the rate from the dataframe based on the input employee id
     return rate
+
 
 # TODO: Need to validate emp_id in case a number is entered that is not in the database. 
 # Maybe include this in the input_employee_data function. 
@@ -55,6 +69,11 @@ def calculate_taxes():
 
 
 # Assigned to Kevin White
-def record_results():
-    pass
+# Record FirstName, LastName, EmployeeID, NumDependents, HoursWorked, GrossPay, NetPay
+def record_results(data: dict) -> None:
+    result_data: list = [first_name, last_name, employee_id, dependents, hours_worked, gross_pay, net_pay]
+    column_headers: list = ["FirstName","LastName","EmployeeID","NumDependents","HoursWorked","GrossPay","NetPay"]
+    results_table = pd.DataFrame([result_data], columns=column_headers)
+    results_table.to_csv("results.csv", mode="a", index=False, header=False)
+
 
