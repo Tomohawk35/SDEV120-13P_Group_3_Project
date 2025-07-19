@@ -10,8 +10,21 @@ from net_pay_calculator import main, input_employee_data, get_pay_rate, calculat
 
 
 # Assigned to Fatimatou Ibrahim
-def test_input_employee_data() -> None:
-    pass
+def test_input_employee_data_valid():
+    result = input_employee_data("Fatima", "Ibrahim", 5, 2, 40.0)
+    assert result == {
+        "first_name": "Fatima",
+        "last_name": "Ibrahim",
+        "employee_id": 5,
+        "dependents": 2,
+        "hours_worked": 40.0
+    }
+
+def test_input_employee_data_invalid_id():
+    with pytest.raises(ValueError) as e:
+        input_employee_data("Test", "User", 9999, 1, 40.0)
+    assert str(e.value) == "Employee ID 9999 not found in database."
+
 
 
 # Assigned to Tyler Howard

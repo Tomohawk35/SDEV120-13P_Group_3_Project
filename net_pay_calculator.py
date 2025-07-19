@@ -28,10 +28,29 @@ def main():
 
 
 # Assigned to Fatimatou Ibrahim
-# Input FirstName (string), LastName (string), EmployeeID (integer), NumDependents (integer), HoursWorked (float)
-# Verify inputs
-def input_employee_data():
-    pass
+# def input_employee_data(first_name: str, last_name: str, employee_id: int, dependents: int, hours_worked: float) -> dict:
+    """
+    Takes employee info as arguments and returns a dictionary. Validates the employee ID using the database.
+    """
+    df = connect_db()
+    
+    if employee_id not in df.index:
+        raise ValueError(f"Employee ID {employee_id} not found in database.")
+    
+    if hours_worked < 0:
+        raise ValueError("Hours worked cannot be negative.")
+    
+    if dependents < 0:
+        raise ValueError("Number of dependents cannot be negative.")
+
+    return {
+        "first_name": first_name,
+        "last_name": last_name,
+        "employee_id": employee_id,
+        "dependents": dependents,
+        "hours_worked": hours_worked
+    }
+
 
 
 # Assigned to Tyler Howard
