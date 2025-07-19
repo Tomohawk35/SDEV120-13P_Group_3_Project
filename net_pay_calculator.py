@@ -28,7 +28,7 @@ def main():
 
 
 # Assigned to Fatimatou Ibrahim
-# def input_employee_data(first_name: str, last_name: str, employee_id: int, dependents: int, hours_worked: float) -> dict:
+def input_employee_data(first_name: str, last_name: str, employee_id: int, dependents: int, hours_worked: float) -> dict:
     """
     Takes employee info as arguments and returns a dictionary. Validates the employee ID using the database.
     """
