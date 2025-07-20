@@ -2,17 +2,20 @@
 Group 3 Project for SDEV120 at IvyTech
 ## Team Contributions
 
-**Fatimatou Ibrahim**
+Fatimatou Ibrahim
 
-- Completed implementation and validation of `input_employee_data` in `net_pay_calculator.py`
-- Successfully tested all six test cases using `pytest`
-- Resolved setup errors with pip and pytest using a virtual environment
-- Collaborated through GitHub, ensured code quality and pushed final updates
-- Available for follow-up support if needed
+    Developed the input_employee_data() function in net_pay_calculator.py to prompt and validate employee information.
 
-### Command Guide
+    Created and ran multiple test cases for this function using pytest (all tests passed).
 
-```bash
+    Fixed environment setup issues by configuring a virtual environment and installing dependencies.
+
+    Collaborated actively via GitHub, ensuring code quality and pushing updates regularly.
+
+    Available for follow-up support or troubleshooting if needed.
+
+Command Guide
+
 # Create and activate virtual environment
 python -m venv venv
 source venv/bin/activate     # On Mac/Linux
