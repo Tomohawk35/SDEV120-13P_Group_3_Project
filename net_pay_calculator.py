@@ -28,20 +28,47 @@ def main():
 
 
 # Assigned to Fatimatou Ibrahim
-def input_employee_data(first_name: str, last_name: str, employee_id: int, dependents: int, hours_worked: float) -> dict:
+def input_employee_data() -> dict:
     """
-    Takes employee info as arguments and returns a dictionary. Validates the employee ID using the database.
+    Prompts the user for employee data, validates employee_id using the database,
+    and returns the collected data in a dictionary.
     """
     df = connect_db()
-    
-    if employee_id not in df.index:
-        raise ValueError(f"Employee ID {employee_id} not found in database.")
-    
-    if hours_worked < 0:
-        raise ValueError("Hours worked cannot be negative.")
-    
-    if dependents < 0:
-        raise ValueError("Number of dependents cannot be negative.")
+
+    # Prompt and validate employee ID
+    while True:
+        try:
+            employee_id = int(input("Enter Employee ID: "))
+            if employee_id not in df.index:
+                print(f"Employee ID {employee_id} not found in database. Try again.")
+            else:
+                break
+        except ValueError:
+            print("Please enter a valid integer for Employee ID.")
+
+    # Prompt for other details
+    first_name = input("Enter First Name: ").strip()
+    last_name = input("Enter Last Name: ").strip()
+
+    while True:
+        try:
+            dependents = int(input("Enter Number of Dependents: "))
+            if dependents < 0:
+                print("Dependents cannot be negative.")
+            else:
+                break
+        except ValueError:
+            print("Please enter a valid number for dependents.")
+
+    while True:
+        try:
+            hours_worked = float(input("Enter Hours Worked: "))
+            if hours_worked < 0:
+                print("Hours worked cannot be negative.")
+            else:
+                break
+        except ValueError:
+            print("Please enter a valid number for hours worked.")
 
     return {
         "first_name": first_name,
