@@ -24,22 +24,38 @@ net_pay: float
 
 # Main function is assigned to Ashley Kemp
 def main():
+
+    # load and store the employee rates table for use in other functions
+    rate_table: pd.DataFrame = connect_db()
+
+    # Gather employee data
+    emp_data: dict = input_employee_data(rate_table)
+
+    # Query table for pay rate
+    emp_data['pay_rate'] = get_pay_rate(emp_data['employee_id'], rate_table)
+
+    # Calculate gross pay
+    emp_data['gross_pay'] = calculate_gross_pay(emp_data['hours_worked'], emp_data['pay_rate'])
+
+    # Calculate net pay
+    emp_data['net_pay'] = calculate_taxes()
+
+    record_results(emp_data)
+
     pass
 
 
 # Assigned to Fatimatou Ibrahim
-def input_employee_data() -> dict:
+def input_employee_data(emp_list: pd.DataFrame) -> dict:
     """
     Prompts the user for employee data, validates employee_id using the database,
     and returns the collected data in a dictionary.
     """
-    df = connect_db()
-
     # Prompt and validate employee ID
     while True:
         try:
             employee_id = int(input("Enter Employee ID: "))
-            if employee_id not in df.index:
+            if employee_id not in emp_list.index:
                 print(f"Employee ID {employee_id} not found in database. Try again.")
             else:
                 break
@@ -81,32 +97,28 @@ def input_employee_data() -> dict:
 
 # Assigned to Tyler Howard
 # The hourly rate should be pulled from a database using the employee ID as the primary key.
-def connect_db() -> pd.DataFrame: #TODO: Add try-except block in case connection fails
+def connect_db() -> pd.DataFrame: 
     # database where employee pay rates are stored
-    rate_table: str = "employee_rates.csv"
+    rate_table_file: str = "employee_rates.csv"
 
     # read the csv file and store a dataframe ("table")
-    df: pd.DataFrame = pd.read_csv(rate_table, header=0, index_col=0) 
-    return df
+    try:
+        rate_data: pd.DataFrame = pd.read_csv(rate_table_file, header=0, index_col=0) 
+        return rate_data
+    except:
+        print(f"Unable to read from {rate_table_file}")
 
 
-def get_pay_rate(emp_id: int) -> float: 
-    rate: float = 0.0 # locally defined rate variable for storing the value
-    # df = pd.read_csv(rate_table, header=0, index_col=0) # reads the csv file and stores a dataframe ("table")
-    df = connect_db()
-    rate = df['employee_rate'].loc[emp_id] # extracts the rate from the dataframe based on the input employee id
-    return rate
+# extracts the rate from the dataframe based on the input employee id
+def get_pay_rate(emp_id: int, emp_rates: pd.DataFrame) -> float: 
+    return emp_rates['employee_rate'].loc[emp_id]
 
 
-# TODO: Need to validate emp_id in case a number is entered that is not in the database. 
-# Maybe include this in the input_employee_data function. 
-
-# TODO: create a list of the possible employee_id's to check against when inputting data
 
 # Assigned to DeMishia jackson
 def calculate_gross_pay(hours_worked: float, pay_rate: float) -> float:
-    standard_hours = MIN(hours_worked, 40) 
-    overtime_hours = MAX(hours_worked-40, 0) 
+    standard_hours = min(hours_worked, 40) 
+    overtime_hours = max(hours_worked-40, 0) 
     standard_pay = standard_hours * pay_rate
     overtime_pay = overtime_hours * pay_rate * 1.5
     return standard_pay + overtime_pay

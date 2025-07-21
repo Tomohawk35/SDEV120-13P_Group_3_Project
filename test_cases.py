@@ -4,7 +4,7 @@
 import pytest
 
 # import functions for testing
-from net_pay_calculator import main, input_employee_data, get_pay_rate, calculate_gross_pay, calculate_taxes, record_results
+from net_pay_calculator import main, input_employee_data, get_pay_rate, calculate_gross_pay, calculate_taxes, record_results, connect_db
 
 
 
@@ -30,9 +30,10 @@ def test_input_employee_data_invalid_id():
 # Assigned to Tyler Howard
 
 def test_get_pay_rate() -> None:
-    assert get_pay_rate(1) == 20.00
-    assert get_pay_rate(2) == 35.00
-    assert get_pay_rate(4) == 17.77
+    df = connect_db()
+    assert get_pay_rate(1, df) == 20.00
+    assert get_pay_rate(2, df) == 35.00
+    assert get_pay_rate(4, df) == 17.77
 
 
 # Assigned to DeMishia jackson
