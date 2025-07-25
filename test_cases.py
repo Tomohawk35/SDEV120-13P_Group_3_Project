@@ -38,11 +38,11 @@ def test_get_pay_rate() -> None:
 
 # Assigned to DeMishia Jackson
 def test_calculate_gross_pay() -> None:
-    (hours_worked, pay_rate)
-    assert calculate_gross_pay(40 * 20) == 800.00
-    assert calculate_gross_pay(40 * 35) + (10 * 35 * 1.5) == 1925.00
-    assert calculate_gross_pay(40 * 18.50) == 740.00
-    assert calculae_gross_pay(40 * 17.77) + (5 * 17.77 * 1.5) == 844.075
+    # (hours_worked, pay_rate)
+    assert calculate_gross_pay(40, 20) == 800.00
+    assert calculate_gross_pay(50, 35) == 1925.00
+    assert calculate_gross_pay(40, 18.50) == 740.00
+    assert calculate_gross_pay(45, 17.77) == 844.07
 
 
 # Assigned to Willie Jones

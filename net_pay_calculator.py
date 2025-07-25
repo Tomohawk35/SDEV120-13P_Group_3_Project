@@ -118,10 +118,10 @@ def get_pay_rate(emp_id: int, emp_rates: pd.DataFrame) -> float:
 # Assigned to DeMishia jackson
 def calculate_gross_pay(hours_worked: float, pay_rate: float) -> float:
     standard_hours = min(hours_worked, 40) 
-    overtime_hours = max(hours_worked-40, 0) 
+    overtime_hours = max(hours_worked - 40, 0) 
     standard_pay = standard_hours * pay_rate
     overtime_pay = overtime_hours * pay_rate * 1.5
-    return standard_pay + overtime_pay
+    return round(standard_pay + overtime_pay, 2)
 
 
 # Assigned to Willie Jones
