@@ -36,9 +36,13 @@ def test_get_pay_rate() -> None:
     assert get_pay_rate(4, df) == 17.77
 
 
-# Assigned to DeMishia jackson
+# Assigned to DeMishia Jackson
 def test_calculate_gross_pay() -> None:
-    pass
+    (hours_worked, pay_rate)
+    assert calculate_gross_pay(40 * 20) == 800.00
+    assert calculate_gross_pay(40 * 35) + (10 * 35 * 1.5) == 1925.00
+    assert calculate_gross_pay(40 * 18.50) == 740.00
+    assert calculae_gross_pay(40 * 17.77) + (5 * 17.77 * 1.5) == 844.075
 
 
 # Assigned to Willie Jones
