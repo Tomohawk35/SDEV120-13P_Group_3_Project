@@ -12,6 +12,12 @@ RATE_TABLE: str = "employee_rates.csv"
 STATE_TAX: float = 0.056
 FEDERAL_TAX: float = 0.079
 
+# sentinel value
+SENTINEL: str = "000"
+
+# while loop control
+enter_data: bool = True
+
 # employee data
 first_name: str
 last_name: str
@@ -24,43 +30,66 @@ net_pay: float
 
 # Main function is assigned to Ashley Kemp
 def main():
-
     # load and store the employee rates table for use in other functions
     rate_table: pd.DataFrame = connect_db()
 
-    # Gather employee data
-    emp_data: dict = input_employee_data(rate_table)
+    # create loop to continue entering data
+    while enter_data == True:
 
-    # Query table for pay rate
-    emp_data['pay_rate'] = get_pay_rate(emp_data['employee_id'], rate_table)
+        # clear variables so values aren't inadvertently carried to next entry
+        first_name = None
+        last_name = None
+        employee_id = None
+        dependents = None
+        hours_worked = None
+        gross_pay = None
+        net_pay = None
 
-    # Calculate gross pay
-    emp_data['gross_pay'] = calculate_gross_pay(emp_data['hours_worked'], emp_data['pay_rate'])
+        # Gather employee data
+        employee_id = get_employee_id(rate_table)
+        emp_data: dict = input_employee_data(rate_table)
 
-    # Calculate net pay
-    emp_data['net_pay'] = calculate_taxes()
+        # Query table for pay rate
+        emp_data['pay_rate'] = get_pay_rate(emp_data['employee_id'], rate_table)
 
-    record_results(emp_data)
+        # Calculate gross pay
+        emp_data['gross_pay'] = calculate_gross_pay(emp_data['hours_worked'], emp_data['pay_rate'])
+
+        # Calculate net pay
+        emp_data['net_pay'] = calculate_net_pay()
+
+        record_results(emp_data)
 
     pass
 
 
 # Assigned to Fatimatou Ibrahim
+def get_employee_id(emp_list: pd.DataFrame) -> int:
+    # Prompt and validate employee ID
+    while True:
+        try:
+            value = input(f"Enter Employee ID or {SENTINEL} to exit: ")
+            if value == SENTINEL:
+                enter_data = False
+                return 000
+            
+            e_id = int(value)
+            if e_id not in emp_list.index:
+                print(f"Employee ID {e_id} not found in database. Try again.")
+            else:
+                break
+        except ValueError:
+            print("Please enter a valid integer for Employee ID.")
+    
+    return e_id
+
+
+
 def input_employee_data(emp_list: pd.DataFrame) -> dict:
     """
     Prompts the user for employee data, validates employee_id using the database,
     and returns the collected data in a dictionary.
     """
-    # Prompt and validate employee ID
-    while True:
-        try:
-            employee_id = int(input("Enter Employee ID: "))
-            if employee_id not in emp_list.index:
-                print(f"Employee ID {employee_id} not found in database. Try again.")
-            else:
-                break
-        except ValueError:
-            print("Please enter a valid integer for Employee ID.")
 
     # Prompt for other details
     first_name = input("Enter First Name: ").strip()
@@ -138,3 +167,7 @@ def record_results(data: dict) -> None:
     results_table.to_csv("results.csv", mode="a", index=False, header=False)
 
 
+
+
+df = connect_db()
+get_employee_id(df)

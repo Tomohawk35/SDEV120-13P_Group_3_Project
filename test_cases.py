@@ -4,7 +4,7 @@
 import pytest
 
 # import functions for testing
-from net_pay_calculator import main, input_employee_data, get_pay_rate, calculate_gross_pay, calculate_net_pay, record_results, connect_db
+from net_pay_calculator import main, input_employee_data, get_pay_rate, calculate_gross_pay, calculate_net_pay, record_results, connect_db, check_employee_id
 
 
 
@@ -20,6 +20,7 @@ def test_input_employee_data_valid():
         "hours_worked": 40.0
     }
 
+
 def test_input_employee_data_invalid_id():
     with pytest.raises(ValueError) as e:
         input_employee_data("Test", "User", 9999, 1, 40.0)
@@ -28,7 +29,6 @@ def test_input_employee_data_invalid_id():
 
 
 # Assigned to Tyler Howard
-
 def test_get_pay_rate() -> None:
     df = connect_db()
     assert get_pay_rate(1, df) == 20.00
