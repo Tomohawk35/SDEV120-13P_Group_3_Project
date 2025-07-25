@@ -9,8 +9,8 @@ import pandas as pd
 rate_table: str = "employee_rates.csv"
 
 # tax rates
-state_tax: float = 0.056
-federal_tax: float = 0.079
+STATE_TAX: float = 0.056
+FEDERAL_TAX: float = 0.079
 
 # employee data
 first_name: str
