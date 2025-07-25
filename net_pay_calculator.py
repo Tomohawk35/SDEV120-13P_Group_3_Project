@@ -6,7 +6,7 @@ import pandas as pd
 
 
 # database where employee pay rates are stored
-rate_table: str = "employee_rates.csv"
+RATE_TABLE: str = "employee_rates.csv"
 
 # tax rates
 STATE_TAX: float = 0.056
@@ -98,15 +98,12 @@ def input_employee_data(emp_list: pd.DataFrame) -> dict:
 # Assigned to Tyler Howard
 # The hourly rate should be pulled from a database using the employee ID as the primary key.
 def connect_db() -> pd.DataFrame: 
-    # database where employee pay rates are stored
-    rate_table_file: str = "employee_rates.csv"
-
     # read the csv file and store a dataframe ("table")
     try:
-        rate_data: pd.DataFrame = pd.read_csv(rate_table_file, header=0, index_col=0) 
+        rate_data: pd.DataFrame = pd.read_csv(RATE_TABLE, header=0, index_col=0) 
         return rate_data
     except:
-        print(f"Unable to read from {rate_table_file}")
+        print(f"Unable to read from {RATE_TABLE}")
 
 
 # extracts the rate from the dataframe based on the input employee id
@@ -125,40 +122,11 @@ def calculate_gross_pay(hours_worked: float, pay_rate: float) -> float:
 
 
 # Assigned to Willie Jones
-def calculate_taxes():
-    pass
-# start
-# define stateTax, federalTax, grossPay, netPay, stateTaxDeduction, federalTaxDeduction, totalTaxDeduction,
-# input grossPay = float(input (“Enter Gross Pay:  “))
-#      if grossPay >= 0:
-#     else:  print(“Gross Pay Cannot Be Negative. Please Enter A Valid Amount.”)
-#     except ValueError:
-#     print(“Invalid Input. Please Enter A Numeric Value For Gross Pay.”)
-
-# stateTax = .056
-# federalTax = .079
-# stateTaxDeduction = stateTax * grossPay
-# federalTaxDeduction = federalTax * grossPay
-# totalTaxDeduction = stateTaxDeduction + federalTaxDeduction
-# netPay = grossPay - totalTaxDeduction
-
-# print("Gross Pay: ", grossPay)
-# print("State Taxes: ", stateTaxDeduction)
-# print("Federal Taxes: ", federalTaxDeduction)
-# print("Total Taxes: ", totalTaxDeduction)
-# print("Net Pay: ", netPay)
-# end
-
-# def calculate_net_pay(gross_pay):
-#     stateTax = 0.056
-#     federalTax = 0.079
-#     stateTaxDeduction = stateTax * gross_pay
-#     federalTaxDeduction = federalTax * gross_pay
-#     totalTaxDeduction = stateTaxDeduction + federalTaxDeduction
-#     netPay = gross_pay - totalTaxDeduction
-#     return stateTaxDeduction, federalTaxDeduction, totalTaxDeduction, netPay
-
-
+def calculate_net_pay(gross_pay: float) -> float:
+    state_tax_deduction = STATE_TAX * gross_pay
+    federal_tax_deduction = FEDERAL_TAX * gross_pay
+    net_pay = round(gross_pay - state_tax_deduction - federal_tax_deduction, 2)
+    return net_pay
 
 
 # Assigned to Kevin White

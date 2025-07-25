@@ -4,7 +4,7 @@
 import pytest
 
 # import functions for testing
-from net_pay_calculator import main, input_employee_data, get_pay_rate, calculate_gross_pay, calculate_taxes, record_results, connect_db
+from net_pay_calculator import main, input_employee_data, get_pay_rate, calculate_gross_pay, calculate_net_pay, record_results, connect_db
 
 
 
@@ -46,19 +46,10 @@ def test_calculate_gross_pay() -> None:
 
 
 # Assigned to Willie Jones
-def test_calculate_taxes() -> None:
-    pass
-
-# # Test Case 1
-# gross_pay = 5000
-# state_tax, federal_tax, total_tax, net_pay = calculate_net_pay(gross_pay)
-# assert round(net_pay, 2) == 4325, f"Test Case 1 Failed: Expected 4325, got {net_pay}"
-
-# # Test Case 2
-# gross_pay = 0
-# state_tax, federal_tax, total_tax, net_pay = calculate_net_pay(gross_pay)
-# assert round(net_pay, 2) == 0, f"Test Case 2 Failed: Expected 0, got {net_pay}"
-
+def test_calculate_net_pay() -> None:
+    assert calculate_net_pay(5000) == 4325
+    assert calculate_net_pay(0) == 0
+    assert calculate_net_pay(2300) == 1989.5
 
 
 # Assigned to Kevin White
