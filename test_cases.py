@@ -49,6 +49,17 @@ def test_calculate_gross_pay() -> None:
 def test_calculate_taxes() -> None:
     pass
 
+# # Test Case 1
+# gross_pay = 5000
+# state_tax, federal_tax, total_tax, net_pay = calculate_net_pay(gross_pay)
+# assert round(net_pay, 2) == 4325, f"Test Case 1 Failed: Expected 4325, got {net_pay}"
+
+# # Test Case 2
+# gross_pay = 0
+# state_tax, federal_tax, total_tax, net_pay = calculate_net_pay(gross_pay)
+# assert round(net_pay, 2) == 0, f"Test Case 2 Failed: Expected 0, got {net_pay}"
+
+
 
 # Assigned to Kevin White
 def test_record_results() -> None:

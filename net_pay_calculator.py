@@ -127,6 +127,38 @@ def calculate_gross_pay(hours_worked: float, pay_rate: float) -> float:
 # Assigned to Willie Jones
 def calculate_taxes():
     pass
+# start
+# define stateTax, federalTax, grossPay, netPay, stateTaxDeduction, federalTaxDeduction, totalTaxDeduction,
+# input grossPay = float(input (“Enter Gross Pay:  “))
+#      if grossPay >= 0:
+#     else:  print(“Gross Pay Cannot Be Negative. Please Enter A Valid Amount.”)
+#     except ValueError:
+#     print(“Invalid Input. Please Enter A Numeric Value For Gross Pay.”)
+
+# stateTax = .056
+# federalTax = .079
+# stateTaxDeduction = stateTax * grossPay
+# federalTaxDeduction = federalTax * grossPay
+# totalTaxDeduction = stateTaxDeduction + federalTaxDeduction
+# netPay = grossPay - totalTaxDeduction
+
+# print("Gross Pay: ", grossPay)
+# print("State Taxes: ", stateTaxDeduction)
+# print("Federal Taxes: ", federalTaxDeduction)
+# print("Total Taxes: ", totalTaxDeduction)
+# print("Net Pay: ", netPay)
+# end
+
+# def calculate_net_pay(gross_pay):
+#     stateTax = 0.056
+#     federalTax = 0.079
+#     stateTaxDeduction = stateTax * gross_pay
+#     federalTaxDeduction = federalTax * gross_pay
+#     totalTaxDeduction = stateTaxDeduction + federalTaxDeduction
+#     netPay = gross_pay - totalTaxDeduction
+#     return stateTaxDeduction, federalTaxDeduction, totalTaxDeduction, netPay
+
+
 
 
 # Assigned to Kevin White
