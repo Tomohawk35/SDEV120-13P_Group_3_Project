@@ -4,7 +4,8 @@
 import pytest
 
 # import functions for testing
-from net_pay_calculator import main, input_employee_data, get_pay_rate, calculate_gross_pay, calculate_net_pay, record_results, connect_db, check_employee_id
+from net_pay_calculator import main, input_employee_data, get_pay_rate, calculate_gross_pay, calculate_net_pay, connect_db
+
 
 
 

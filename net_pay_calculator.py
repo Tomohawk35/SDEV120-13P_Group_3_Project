@@ -75,6 +75,7 @@ def main():
 def do_continue():
     return input("Would you like to input more data? (y/n): ")
 
+
 # Assigned to Fatimatou Ibrahim
 def get_employee_id(emp_list: pd.DataFrame) -> int:
     # Prompt and validate employee ID
@@ -159,16 +160,12 @@ def calculate_net_pay(gross_pay: float) -> float:
     return state_tax_deduction, federal_tax_deduction, net_pay
 
 
-# Assigned to Kevin White
+# Assigned to Kevin White // Completed by Tyler Howard
 # Record FirstName, LastName, EmployeeID, NumDependents, HoursWorked, GrossPay, NetPay
 def record_results(data: list) -> None:
-    # result_data: list = [first_name, last_name, employee_id, dependents, hours_worked, gross_pay, net_pay]
     column_headers: list = ["EmployeeID","FirstName","LastName","NumDependents","HoursWorked","PayRate","StandardHours","OvertimeHours","StandardPay","OvertimePay","GrossPay","StateTax","FedTax","NetPay"]
     results_table = pd.DataFrame([data], columns=column_headers)
-    print(results_table)
     results_table.to_csv("results.csv", mode="a", index=False, header=False)
-
-
 
 
 main()
