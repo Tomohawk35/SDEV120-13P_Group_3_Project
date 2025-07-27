@@ -11,21 +11,37 @@ from net_pay_calculator import main, input_employee_data, get_pay_rate, calculat
 
 
 # Assigned to Fatimatou Ibrahim
+import pytest
+from unittest.mock import patch
+import pandas as pd
+from net_pay_calculator import input_employee_data  
+
+# Sample employee list
+emp_list = pd.DataFrame({
+    'first_name': ['Fatima', 'Tyler'],
+    'last_name': ['Ibrahim', 'Howard'],
+    'dependents': [2, 1]
+}, index=[5, 6])
+
 def test_input_employee_data_valid():
-    result = input_employee_data("Fatima", "Ibrahim", 5, 2, 40.0)
+    user_inputs = ['5', 'Fatima', 'Ibrahim', '2', '40.0']
+    with patch('builtins.input', side_effect=user_inputs):
+        result = input_employee_data(emp_list)
     assert result == {
-        "first_name": "Fatima",
-        "last_name": "Ibrahim",
-        "employee_id": 5,
-        "dependents": 2,
-        "hours_worked": 40.0
+        'employee_id': 5,
+        'first_name': 'Fatima',
+        'last_name': 'Ibrahim',
+        'dependents': 2,
+        'hours_worked': 40.0
     }
 
-
 def test_input_employee_data_invalid_id():
-    with pytest.raises(ValueError) as e:
-        input_employee_data("Test", "User", 9999, 1, 40.0)
-    assert str(e.value) == "Employee ID 9999 not found in database."
+    user_inputs = ['999', '5', 'Fatima', 'Ibrahim', '2', '40.0']
+    with patch('builtins.input', side_effect=user_inputs):
+        result = input_employee_data(emp_list)
+    assert result['employee_id'] == 5
+
+
 
 
 
