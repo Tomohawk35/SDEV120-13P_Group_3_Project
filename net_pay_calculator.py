@@ -77,29 +77,26 @@ def do_continue():
 
 
 # Assigned to Fatimatou Ibrahim
-def get_employee_id(emp_list: pd.DataFrame) -> int:
-    # Prompt and validate employee ID
+# net_pay_calculator.py
+
+from typing import Tuple
+import pandas as pd
+
+def input_employee_data(emp_list: pd.DataFrame) -> dict:
+    """
+    Prompts user for employee data and returns it as a dictionary.
+    """
+    # Validate Employee ID
     while True:
         try:
-            e_id: int = int(input("Enter Employee ID: ").strip())
+            e_id = int(input("Enter Employee ID: ").strip())
             if e_id not in emp_list.index:
                 print(f"Employee ID {e_id} not found in database. Try again.")
             else:
                 break
         except ValueError:
             print("Please enter a valid integer for Employee ID.")
-    
-    return e_id
 
-
-
-def input_employee_data() -> Tuple[str, str, int, float]:
-    """
-    Prompts the user for employee data, validates employee_id using the database,
-    and returns the collected data in a dictionary.
-    """
-
-    # Prompt for other details
     first_name = input("Enter First Name: ").strip()
     last_name = input("Enter Last Name: ").strip()
 
@@ -122,8 +119,15 @@ def input_employee_data() -> Tuple[str, str, int, float]:
                 break
         except ValueError:
             print("Please enter a valid number for hours worked.")
-    
-    return first_name, last_name, dependents, hours_worked
+
+    return {
+        'employee_id': e_id,
+        'first_name': first_name,
+        'last_name': last_name,
+        'dependents': dependents,
+        'hours_worked': hours_worked
+    }
+
 
 
 # Assigned to Tyler Howard
