@@ -5,11 +5,6 @@ import pytest
 
 # import functions for testing
 from net_pay_calculator import main, input_employee_data, get_pay_rate, calculate_gross_pay, calculate_net_pay, connect_db
-
-
-
-
-
 # Assigned to Fatimatou Ibrahim
 import pytest
 from unittest.mock import patch
@@ -20,28 +15,31 @@ from net_pay_calculator import input_employee_data
 emp_list = pd.DataFrame({
     'first_name': ['Fatima', 'Tyler'],
     'last_name': ['Ibrahim', 'Howard'],
-    'dependents': [2, 1]
-}, index=[5, 6])
-
+    'dependents': [2, 3]
+}, index=[1, 4])  
 def test_input_employee_data_valid():
-    user_inputs = ['5', 'Fatima', 'Ibrahim', '2', '40.0']
+    user_inputs = ['1', 'Fatima', 'Ibrahim', '2', '20.00']
     with patch('builtins.input', side_effect=user_inputs):
         result = input_employee_data(emp_list)
     assert result == {
-        'employee_id': 5,
+        'employee_id': 1,
         'first_name': 'Fatima',
         'last_name': 'Ibrahim',
         'dependents': 2,
-        'hours_worked': 40.0
+        'hours_worked': 20.00
     }
 
 def test_input_employee_data_invalid_then_valid_id():
-    user_inputs = ['999', '5', 'Fatima', 'Ibrahim', '2', '40.0']
+    user_inputs = ['999', '4', 'Tyler', 'Howard', '3', '17.77']
     with patch('builtins.input', side_effect=user_inputs):
         result = input_employee_data(emp_list)
-    assert result['employee_id'] == 5
-
-
+    assert result == {
+        'employee_id': 4,
+        'first_name': 'Tyler',
+        'last_name': 'Howard',
+        'dependents': 3,
+        'hours_worked': 17.77
+    }
 
 # Assigned to Tyler Howard
 def test_get_pay_rate() -> None:
