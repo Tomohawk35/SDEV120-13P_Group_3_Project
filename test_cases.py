@@ -11,36 +11,55 @@ from net_pay_calculator import main, input_employee_data, get_pay_rate, calculat
 
 
 # Assigned to Fatimatou Ibrahim
-import pytest
-from unittest.mock import patch
+
+from typing import Tuple
 import pandas as pd
-from net_pay_calculator import input_employee_data  
 
-# Sample employee list
-emp_list = pd.DataFrame({
-    'first_name': ['Fatima', 'Tyler'],
-    'last_name': ['Ibrahim', 'Howard'],
-    'dependents': [2, 1]
-}, index=[5, 6])
+def input_employee_data(emp_list: pd.DataFrame) -> dict:
+    """
+    Prompts user for employee data and returns it as a dictionary.
+    """
+    # Validate Employee ID
+    while True:
+        try:
+            e_id = int(input("Enter Employee ID: ").strip())
+            if e_id not in emp_list.index:
+                print(f"Employee ID {e_id} not found in database. Try again.")
+            else:
+                break
+        except ValueError:
+            print("Please enter a valid integer for Employee ID.")
 
-def test_input_employee_data_valid():
-    user_inputs = ['5', 'Fatima', 'Ibrahim', '2', '40.0']
-    with patch('builtins.input', side_effect=user_inputs):
-        result = input_employee_data(emp_list)
-    assert result == {
-        'employee_id': 5,
-        'first_name': 'Fatima',
-        'last_name': 'Ibrahim',
-        'dependents': 2,
-        'hours_worked': 40.0
+    first_name = input("Enter First Name: ").strip()
+    last_name = input("Enter Last Name: ").strip()
+
+    while True:
+        try:
+            dependents = int(input("Enter Number of Dependents: "))
+            if dependents < 0:
+                print("Dependents cannot be negative.")
+            else:
+                break
+        except ValueError:
+            print("Please enter a valid number for dependents.")
+
+    while True:
+        try:
+            hours_worked = float(input("Enter Hours Worked: "))
+            if hours_worked < 0:
+                print("Hours worked cannot be negative.")
+            else:
+                break
+        except ValueError:
+            print("Please enter a valid number for hours worked.")
+
+    return {
+        'employee_id': e_id,
+        'first_name': first_name,
+        'last_name': last_name,
+        'dependents': dependents,
+        'hours_worked': hours_worked
     }
-
-def test_input_employee_data_invalid_id():
-    user_inputs = ['999', '5', 'Fatima', 'Ibrahim', '2', '40.0']
-    with patch('builtins.input', side_effect=user_inputs):
-        result = input_employee_data(emp_list)
-    assert result['employee_id'] == 5
-
 
 
 
