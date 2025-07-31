@@ -77,15 +77,20 @@ def do_continue():
 
 
 # Assigned to Fatimatou Ibrahim
-# Function to input employee data with ID validation from CSV
 
+import pandas as pd
+
+# Function to input employee data with ID validation from CSV
 def input_employee_data(emp_list):
     while True:
-        e_id = int(input("Enter Employee ID: "))
-        if e_id in emp_list.index:
-            break
-        else:
-            print("ID not found. Try again.")
+        try:
+            e_id = int(input("Enter Employee ID: "))
+            if e_id in emp_list.index:
+                break
+            else:
+                print("ID not found. Try again.")
+        except ValueError:
+            print("Please enter a valid number.")
 
     first_name = input("Enter First Name: ")
     last_name = input("Enter Last Name: ")

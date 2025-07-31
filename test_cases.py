@@ -5,6 +5,7 @@ import pytest
 
 # import functions for testing
 from net_pay_calculator import main, input_employee_data, get_pay_rate, calculate_gross_pay, calculate_net_pay, connect_db
+
 # Assigned to Fatimatou Ibrahim
 import pytest
 from unittest.mock import patch
@@ -17,6 +18,7 @@ emp_list = pd.DataFrame({
     'last_name': ['Ibrahim', 'Howard'],
     'dependents': [2, 3]
 }, index=[1, 4])  
+
 def test_input_employee_data_valid():
     user_inputs = ['1', 'Fatima', 'Ibrahim', '2', '20.00']
     with patch('builtins.input', side_effect=user_inputs):
@@ -40,6 +42,7 @@ def test_input_employee_data_invalid_then_valid_id():
         'dependents': 3,
         'hours_worked': 17.77
     }
+
 
 # Assigned to Tyler Howard
 def test_get_pay_rate() -> None:
