@@ -77,48 +77,20 @@ def do_continue():
 
 
 # Assigned to Fatimatou Ibrahim
-# net_pay_calculator.py
+# Function to input employee data with ID validation from CSV
 
-from typing import Tuple
-import pandas as pd
-
-def input_employee_data(emp_list: pd.DataFrame) -> dict:
-    """
-    Prompts user for employee data and returns it as a dictionary.
-    """
-    # Validate Employee ID
+def input_employee_data(emp_list):
     while True:
-        try:
-            e_id = int(input("Enter Employee ID: ").strip())
-            if e_id not in emp_list.index:
-                print(f"Employee ID {e_id} not found in database. Try again.")
-            else:
-                break
-        except ValueError:
-            print("Please enter a valid integer for Employee ID.")
+        e_id = int(input("Enter Employee ID: "))
+        if e_id in emp_list.index:
+            break
+        else:
+            print("ID not found. Try again.")
 
-    first_name = input("Enter First Name: ").strip()
-    last_name = input("Enter Last Name: ").strip()
-
-    while True:
-        try:
-            dependents = int(input("Enter Number of Dependents: "))
-            if dependents < 0:
-                print("Dependents cannot be negative.")
-            else:
-                break
-        except ValueError:
-            print("Please enter a valid number for dependents.")
-
-    while True:
-        try:
-            hours_worked = float(input("Enter Hours Worked: "))
-            if hours_worked < 0:
-                print("Hours worked cannot be negative.")
-            else:
-                break
-        except ValueError:
-            print("Please enter a valid number for hours worked.")
+    first_name = input("Enter First Name: ")
+    last_name = input("Enter Last Name: ")
+    dependents = int(input("Enter Number of Dependents: "))
+    hours_worked = float(input("Enter Hours Worked: "))
 
     return {
         'employee_id': e_id,
