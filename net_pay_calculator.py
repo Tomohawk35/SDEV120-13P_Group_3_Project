@@ -75,12 +75,16 @@ def main():
 def do_continue():
     return input("Would you like to input more data? (y/n): ")
 
-
-# Assigned to Fatimatou Ibrahim
-
+# Assigned to Fatimatou ibrahim
 import pandas as pd
 
-# Function to input employee data with ID validation from CSV
+# Load employee data globally
+try:
+    emp_list = pd.read_csv('employee_data.csv', index_col='employee_id')
+except FileNotFoundError:
+    print("Error: 'employee_data.csv' not found.")
+    emp_list = None
+
 def input_employee_data(emp_list):
     while True:
         try:
@@ -110,17 +114,20 @@ def input_employee_data(emp_list):
     }
 
 def main():
-    try:
-        emp_list = pd.read_csv('employee_data.csv', index_col='employee_id')
-    except FileNotFoundError:
-        print("Error: 'employee_data.csv' not found.")
-        return
+    global emp_list
+    if emp_list is None:
+        try:
+            emp_list = pd.read_csv('employee_data.csv', index_col='employee_id')
+        except FileNotFoundError:
+            print("Error: 'employee_data.csv' not found.")
+            return
 
     employee_data = input_employee_data(emp_list)
     print("Employee data collected:", employee_data)
 
 if __name__ == "__main__":
     main()
+
 
 
 
