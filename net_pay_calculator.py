@@ -33,7 +33,7 @@ def main():
         pay_stub_data: list = []
 
         # Gather employee data
-        employee_id = get_employee_id(rate_table)
+       employee_data = input_employee_data(emp_list)
         pay_stub_data.append(employee_id)
 
         first_name, last_name, dependents, hours_worked = input_employee_data()
