@@ -129,9 +129,6 @@ if __name__ == "__main__":
     main()
 
 
-
-
-
 # Assigned to Tyler Howard
 # The hourly rate should be pulled from a database using the employee ID as the primary key.
 def connect_db() -> pd.DataFrame: 
