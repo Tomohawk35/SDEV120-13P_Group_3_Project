@@ -84,7 +84,7 @@ import pandas as pd
 def input_employee_data(emp_list):
     while True:
         try:
-            e_id = int(input("Enter Employee ID: "))
+            e_id = int(input("Enter Employee ID: ").strip())
             if e_id in emp_list.index:
                 break
             else:
@@ -92,18 +92,36 @@ def input_employee_data(emp_list):
         except ValueError:
             print("Please enter a valid number.")
 
-    first_name = input("Enter First Name: ")
-    last_name = input("Enter Last Name: ")
-    dependents = int(input("Enter Number of Dependents: "))
-    hours_worked = float(input("Enter Hours Worked: "))
+    first_name = input("Enter First Name: ").strip()
+    last_name = input("Enter Last Name: ").strip()
+
+    while True:
+        try:
+            dependents = int(input("Enter Number of Dependents: ").strip())
+            break
+        except ValueError:
+            print("Please enter a valid number for dependents.")
 
     return {
         'employee_id': e_id,
         'first_name': first_name,
         'last_name': last_name,
-        'dependents': dependents,
-        'hours_worked': hours_worked
+        'dependents': dependents
     }
+
+def main():
+    try:
+        emp_list = pd.read_csv('employee_data.csv', index_col='employee_id')
+    except FileNotFoundError:
+        print("Error: 'employee_data.csv' not found.")
+        return
+
+    employee_data = input_employee_data(emp_list)
+    print("Employee data collected:", employee_data)
+
+if __name__ == "__main__":
+    main()
+
 
 
 
