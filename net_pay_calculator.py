@@ -9,6 +9,7 @@ from typing import Tuple
 # database where employee pay rates are stored
 RATE_TABLE: str = "employee_rates.csv"
 
+
 # tax rates
 STATE_TAX: float = 0.056
 FEDERAL_TAX: float = 0.079
@@ -22,61 +23,54 @@ enter_data: bool = True
 
 # Main function is assigned to Ashley Kemp
 def main():
-    # load and store the employee rates table for use in other functions
-    rate_table: pd.DataFrame = connect_db()
+    rate_table = connect_db()
+    emp_list = pd.read_csv('employee_data.csv', index_col='employee_id')
 
     global enter_data
 
-    # create loop to continue entering data
-    while enter_data == True:
+    while enter_data:
+        pay_stub_data = []
 
-        pay_stub_data: list = []
+        employee_data = input_employee_data(emp_list)
 
-        # Gather employee data
-       employee_data = input_employee_data(emp_list)
+        employee_id = employee_data['employee_id']
+        first_name = employee_data['first_name']
+        last_name = employee_data['last_name']
+        dependents = employee_data['dependents']
+        hours_worked = employee_data['hours_worked']
+
         pay_stub_data.append(employee_id)
-
-        first_name, last_name, dependents, hours_worked = input_employee_data()
         pay_stub_data.append(first_name)
         pay_stub_data.append(last_name)
         pay_stub_data.append(dependents)
         pay_stub_data.append(hours_worked)
 
-        # Query table for pay rate
         pay_rate = get_pay_rate(employee_id, rate_table)
         pay_stub_data.append(pay_rate)
 
-        # Calculate gross pay
         standard_hours, overtime_hours, standard_pay, overtime_pay, gross_pay = calculate_gross_pay(hours_worked, pay_rate)
-        pay_stub_data.append(standard_hours)
-        pay_stub_data.append(overtime_hours)
-        pay_stub_data.append(standard_pay)
-        pay_stub_data.append(overtime_pay)
-        pay_stub_data.append(gross_pay)
+        pay_stub_data.extend([standard_hours, overtime_hours, standard_pay, overtime_pay, gross_pay])
 
-        # Calculate net pay
         state_tax_ded, fed_tax_ded, net_pay = calculate_net_pay(gross_pay)
-        pay_stub_data.append(state_tax_ded)
-        pay_stub_data.append(fed_tax_ded)
-        pay_stub_data.append(net_pay)
+        pay_stub_data.extend([state_tax_ded, fed_tax_ded, net_pay])
 
         record_results(pay_stub_data)
-        
-        value: str = do_continue()
-        while value != "y" and value != "n":
+
+        value = do_continue()
+        while value not in ("y", "n"):
             value = do_continue()
-        
+
         if value == "n":
             enter_data = False
-        
+
     print("Program complete.")
+
 
 
 def do_continue():
     return input("Would you like to input more data? (y/n): ")
 
 # Assigned to Fatimatou Ibrahim
-import pandas as pd
 
 def input_employee_data(emp_list: pd.DataFrame) -> dict:
     while True:
