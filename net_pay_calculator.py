@@ -127,12 +127,12 @@ def get_pay_rate(emp_id: int, emp_rates: pd.DataFrame) -> float:
 
 
 # Assigned to DeMishia jackson
-def calculate_gross_pay(hours_worked: float, pay_rate: float) -> float:
-    standard_hours: float = min(hours_worked, 40) 
-    overtime_hours: float = max(hours_worked - 40, 0) 
+def calculate_gross_pay(hours_worked: float, pay_rate: float) -> Tuple[float, float, float, float, float]:
+    standard_hours: float = min(hours_worked, 40)
+    overtime_hours: float = max(hours_worked - 40, 0)
     standard_pay: float = round(standard_hours * pay_rate, 2)
     overtime_pay: float = round(overtime_hours * pay_rate * 1.5, 2)
-gross_pay: float = round(standard_pay + overtime_pay, 2)
+    gross_pay: float = standard_pay + overtime_pay
     return standard_hours, overtime_hours, standard_pay, overtime_pay, gross_pay
 
 
