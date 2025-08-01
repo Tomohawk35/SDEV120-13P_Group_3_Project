@@ -132,7 +132,7 @@ def calculate_gross_pay(hours_worked: float, pay_rate: float) -> float:
     overtime_hours: float = max(hours_worked - 40, 0) 
     standard_pay: float = round(standard_hours * pay_rate, 2)
     overtime_pay: float = round(overtime_hours * pay_rate * 1.5, 2)
-    gross_pay: float = standard_pay + overtime_pay
+gross_pay: float = round(standard_pay + overtime_pay, 2)
     return standard_hours, overtime_hours, standard_pay, overtime_pay, gross_pay
 
 
@@ -151,5 +151,6 @@ def record_results(data: list) -> None:
     results_table = pd.DataFrame([data], columns=column_headers)
     results_table.to_csv("results.csv", mode="a", index=False, header=False)
 
-
-main()
+# Run the program only when this script is executed directly
+if __name__ == "__main__":
+    main()
