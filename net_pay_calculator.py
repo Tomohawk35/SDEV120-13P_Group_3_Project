@@ -75,15 +75,8 @@ def main():
 def do_continue():
     return input("Would you like to input more data? (y/n): ")
 
-# Assigned to Fatimatou ibrahim
+# Assigned to Fatimatou Ibrahim
 import pandas as pd
-
-# Load employee data globally
-try:
-    emp_list = pd.read_csv('employee_data.csv', index_col='employee_id')
-except FileNotFoundError:
-    print("Error: 'employee_data.csv' not found.")
-    emp_list = None
 
 def input_employee_data(emp_list):
     while True:
@@ -114,13 +107,11 @@ def input_employee_data(emp_list):
     }
 
 def main():
-    global emp_list
-    if emp_list is None:
-        try:
-            emp_list = pd.read_csv('employee_data.csv', index_col='employee_id')
-        except FileNotFoundError:
-            print("Error: 'employee_data.csv' not found.")
-            return
+    try:
+        emp_list = pd.read_csv('employee_data.csv', index_col='employee_id')
+    except FileNotFoundError:
+        print("Error: 'employee_data.csv' not found.")
+        return
 
     employee_data = input_employee_data(emp_list)
     print("Employee data collected:", employee_data)
