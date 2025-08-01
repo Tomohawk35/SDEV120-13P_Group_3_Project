@@ -12,27 +12,27 @@ from unittest.mock import patch
 import pandas as pd
 from net_pay_calculator import input_employee_data
 
-# Simulate an employee "database"
+# Create a simple employee "database"
 emp_list = pd.DataFrame({
-    'first_name': ['Fatima', 'Tyler'],
+    'first_name': ['Fatimatou', 'Tyler'],
     'last_name': ['Ibrahim', 'Howard'],
     'dependents': [2, 3]
-}, index=[1, 4])  
+}, index=[1, 4])
 
 def test_input_employee_data_valid():
-    user_inputs = ['1', 'Fatima', 'Ibrahim', '2', '20.00']
+    user_inputs = ['1', 'Fatimatou', 'Ibrahim', '2', '40.00']  # inputs prompted in order
     with patch('builtins.input', side_effect=user_inputs):
         result = input_employee_data(emp_list)
     assert result == {
         'employee_id': 1,
-        'first_name': 'Fatima',
+        'first_name': 'Fatimatou',
         'last_name': 'Ibrahim',
         'dependents': 2,
-        'hours_worked': 20.00
+        'hours_worked': 40.00
     }
 
 def test_input_employee_data_invalid_then_valid_id():
-    user_inputs = ['999', '4', 'Tyler', 'Howard', '3', '17.77']
+    user_inputs = ['999', '4', 'Tyler', 'Howard', '3', '45.00']
     with patch('builtins.input', side_effect=user_inputs):
         result = input_employee_data(emp_list)
     assert result == {
@@ -40,7 +40,7 @@ def test_input_employee_data_invalid_then_valid_id():
         'first_name': 'Tyler',
         'last_name': 'Howard',
         'dependents': 3,
-        'hours_worked': 17.77
+        'hours_worked': 45.00
     }
 
 

@@ -78,16 +78,16 @@ def do_continue():
 # Assigned to Fatimatou Ibrahim
 import pandas as pd
 
-def input_employee_data(emp_list):
+def input_employee_data(emp_list: pd.DataFrame) -> dict:
     while True:
         try:
-            e_id = int(input("Enter Employee ID: ").strip())
-            if e_id in emp_list.index:
+            employee_id = int(input("Enter Employee ID: ").strip())
+            if employee_id in emp_list.index:
                 break
             else:
-                print("ID not found. Try again.")
+                print("Employee ID not found. Please try again.")
         except ValueError:
-            print("Please enter a valid number.")
+            print("Invalid input. Please enter a number.")
 
     first_name = input("Enter First Name: ").strip()
     last_name = input("Enter Last Name: ").strip()
@@ -97,27 +97,23 @@ def input_employee_data(emp_list):
             dependents = int(input("Enter Number of Dependents: ").strip())
             break
         except ValueError:
-            print("Please enter a valid number for dependents.")
+            print("Invalid input. Please enter a number for dependents.")
+
+    while True:
+        try:
+            hours_worked = float(input("Enter Hours Worked: ").strip())
+            break
+        except ValueError:
+            print("Invalid input. Please enter a number for hours worked.")
 
     return {
-        'employee_id': e_id,
+        'employee_id': employee_id,
         'first_name': first_name,
         'last_name': last_name,
-        'dependents': dependents
+        'dependents': dependents,
+        'hours_worked': hours_worked
     }
 
-def main():
-    try:
-        emp_list = pd.read_csv('employee_data.csv', index_col='employee_id')
-    except FileNotFoundError:
-        print("Error: 'employee_data.csv' not found.")
-        return
-
-    employee_data = input_employee_data(emp_list)
-    print("Employee data collected:", employee_data)
-
-if __name__ == "__main__":
-    main()
 
 
 # Assigned to Tyler Howard
