@@ -1,5 +1,3 @@
 EmployeeID,FirstName,LastName,NumDependents,HoursWorked,PayRate,StandardHours,OvertimeHours,StandardPay,OvertimePay,GrossPay,StateTax,FedTax,NetPay
-
-2,sg,sg,3,12.0,35.0,12.0,0,420.0,0.0,420.0,23.52,33.18,363.3
-8,iosdf,lngb,4,65.0,23.35,40,25.0,934.0,875.62,1809.62,101.33872,142.95998,1565.32
-1,Fatimatou,Ibrahim,2,40.0,20.0,40.0,0.0,800.0,0.0,800.0,44.800000000000004,63.2,692.0
+4,Tyler,Howard,2,65.0,17.77,40,25.0,710.8,666.38,1377.18,77.12,108.8,1191.26
+3,Nate,Jacobs,5,43.0,18.5,40,3.0,740.0,83.25,823.25,46.1,65.04,712.11

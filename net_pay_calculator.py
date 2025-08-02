@@ -9,7 +9,6 @@ from typing import Tuple
 # database where employee pay rates are stored
 RATE_TABLE: str = "employee_rates.csv"
 
-
 # tax rates
 STATE_TAX: float = 0.056
 FEDERAL_TAX: float = 0.079
@@ -21,17 +20,17 @@ SENTINEL: str = "000"
 enter_data: bool = True
 
 
-# Main function is assigned to Ashley Kemp
+# Main function is assigned to Ashley Kemp // Completed by Tyler Howard and Fatimatou IBRAHIM
 def main():
     rate_table = connect_db()
-    emp_list = pd.read_csv('employee_data.csv', index_col='employee_id')
+    # emp_list = pd.read_csv('employee_data.csv', index_col='employee_id')
 
     global enter_data
 
     while enter_data:
         pay_stub_data = []
 
-        employee_data = input_employee_data(emp_list)
+        employee_data = input_employee_data(rate_table)
 
         employee_id = employee_data['employee_id']
         first_name = employee_data['first_name']
@@ -138,8 +137,8 @@ def calculate_gross_pay(hours_worked: float, pay_rate: float) -> Tuple[float, fl
 
 # Assigned to Willie Jones
 def calculate_net_pay(gross_pay: float) -> float:
-    state_tax_deduction = STATE_TAX * gross_pay
-    federal_tax_deduction = FEDERAL_TAX * gross_pay
+    state_tax_deduction = round(STATE_TAX * gross_pay, 2)
+    federal_tax_deduction = round(FEDERAL_TAX * gross_pay, 2)
     net_pay = round(gross_pay - state_tax_deduction - federal_tax_deduction, 2)
     return state_tax_deduction, federal_tax_deduction, net_pay
 

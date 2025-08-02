@@ -1,35 +1,32 @@
 # SDEV120-13P_Group_3_Project
 Group 3 Project for SDEV120 at IvyTech
-## Team Contributions
 
-Fatimatou Ibrahim
+## Project Overview
 
-    Developed the input_employee_data() function in net_pay_calculator.py to prompt and validate employee information.
+This project is intended to meet the following requirements:
+- Take inputs from the user, including employee_id, first name, last name, number of dependents, and hours worked
+- Query an existing database with the entered employee_id for the associated pay rate
+- Calculate standard pay, overtime pay, gross pay, state and federal taxes, and net pay
+- Output all data to a data file
+- Continue taking input until user exits
 
-    Created and ran multiple test cases for this function using pytest (all tests passed).
 
-    Fixed environment setup issues by configuring a virtual environment and installing dependencies.
+# Command Guide
 
-    Collaborated actively via GitHub, ensuring code quality and pushing updates regularly.
-
-    Available for follow-up support or troubleshooting if needed.
-
-Command Guide
-
-# Create and activate virtual environment
+## Create and activate virtual environment
 python -m venv venv
 source venv/bin/activate     # On Mac/Linux
-# or
+### or
 venv\Scripts\activate        # On Windows
 
-# Install dependencies
+## Install dependencies
 pip install -r requirements.txt
 
-# Run tests
+## Run tests
 pytest test_cases.py
 
-# Freeze environment (if needed)
+## Freeze environment (if needed)
 pip freeze > requirements.txt
 
-# Deactivate environment (when done)
+## Deactivate environment (when done)
 deactivate
