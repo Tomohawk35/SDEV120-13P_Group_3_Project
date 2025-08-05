@@ -1,19 +1,14 @@
 import pandas as pd
 from typing import Tuple
 
-# Database where employee info and pay rates are stored
+# Database CSV file path
 RATE_TABLE = "employee_rates.csv"  # CSV includes: employee_id,first_name,last_name,dependents,pay_rate
 
 # Tax rates
 STATE_TAX = 0.056
 FEDERAL_TAX = 0.079
 
-# Sentinel value (not used here but kept for future use)
-SENTINEL = "000"
-
-# While loop control
 enter_data = True
-
 
 # Main function - Assigned to Ashley Kemp, Completed by Tyler Howard and Fatimatou Ibrahim
 def main():
@@ -54,7 +49,6 @@ def main():
 
     print("Program complete.")
 
-
 # Input employee data - Assigned to Fatimatou Ibrahim
 def input_employee_data(rate_table: pd.DataFrame) -> dict:
     while True:
@@ -89,8 +83,7 @@ def input_employee_data(rate_table: pd.DataFrame) -> dict:
         'pay_rate': pay_rate
     }
 
-
-# Connect to "database" CSV - Assigned to Tyler Howard
+# Connect to database CSV - Assigned to Tyler Howard
 def connect_db() -> pd.DataFrame:
     try:
         rate_data: pd.DataFrame = pd.read_csv(RATE_TABLE, header=0, index_col=0)
@@ -98,7 +91,6 @@ def connect_db() -> pd.DataFrame:
     except Exception as e:
         print(f"Unable to read from {RATE_TABLE}: {e}")
         exit(1)
-
 
 # Calculate gross pay - Assigned to DeMishia Jackson
 def calculate_gross_pay(hours_worked: float, pay_rate: float) -> Tuple[float, float, float, float, float]:
@@ -109,14 +101,12 @@ def calculate_gross_pay(hours_worked: float, pay_rate: float) -> Tuple[float, fl
     gross_pay = standard_pay + overtime_pay
     return standard_hours, overtime_hours, standard_pay, overtime_pay, gross_pay
 
-
 # Calculate net pay - Assigned to Willie Jones
 def calculate_net_pay(gross_pay: float) -> Tuple[float, float, float]:
     state_tax_deduction = round(STATE_TAX * gross_pay, 2)
     federal_tax_deduction = round(FEDERAL_TAX * gross_pay, 2)
     net_pay = round(gross_pay - state_tax_deduction - federal_tax_deduction, 2)
     return state_tax_deduction, federal_tax_deduction, net_pay
-
 
 # Record results to CSV - Assigned to Kevin White, Completed by Tyler Howard
 def record_results(data: list) -> None:
@@ -128,11 +118,9 @@ def record_results(data: list) -> None:
     results_table = pd.DataFrame([data], columns=column_headers)
     results_table.to_csv("results.csv", mode="a", index=False, header=False)
 
-
-# Ask user if want to continue
+# Ask if want to continue
 def do_continue() -> str:
     return input("Would you like to input more data? (y/n): ")
-
 
 if __name__ == "__main__":
     main()
