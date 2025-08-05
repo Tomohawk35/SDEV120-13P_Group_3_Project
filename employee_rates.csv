@@ -1,4 +1,4 @@
-employee_id,first_name,last_name,dependents,employee_rate
+employee_id,first_name,last_name,dependents,pay_rate
 1,Fatimatou,Ibrahim,2,20.00
 2,Tyler,Howard,3,35.00
 3,Ashley,Kemp,1,18.50
