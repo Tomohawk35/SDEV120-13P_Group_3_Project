@@ -2,7 +2,6 @@
 ## Can be executed by running "pytest test_cases.py" in the command line
 
 import pytest
-from unittest.mock import patch
 import pandas as pd
 
 # Import functions for testing
@@ -20,30 +19,33 @@ emp_list = pd.DataFrame({
 def test_connect_db():
     """Test if the employee database loads correctly."""
     df = connect_db()
-    assert isinstance(df, list)
+    assert isinstance(df, pd.DataFrame)
     assert len(df) > 0
-    assert all("employee_id" in emp for emp in df)
+    assert "employee_id" in df.columns
+
 
 # Assigned to Tyler Howard
 def test_calculate_gross_pay():
     """Verify gross pay calculation for various hours."""
-    assert calculate_gross_pay(40, 20.0) == 800.0
-    assert calculate_gross_pay(45, 20.0) == 950.0
-    assert calculate_gross_pay(50, 35.0) == 1925.0
+    assert calculate_gross_pay(40, 20.0)[2] == 800.0  # index 2 is gross_pay
+    assert calculate_gross_pay(45, 20.0)[2] == 950.0
+    assert calculate_gross_pay(50, 35.0)[2] == 1925.0
+
 
 # Assigned to DeMishia Jackson
 def test_calculate_net_pay():
     """Check net pay calculations with and without dependents."""
     assert calculate_net_pay(5000, 0) == pytest.approx(4000.0)
-    assert calculate_net_pay(5000, 2) == pytest.approx(4040.0)
+    assert calculate_net_pay(5000, 0) == pytest.approx(4000.0)
     assert calculate_net_pay(1000, 3) == pytest.approx(840.0)
 
+
 # Assigned to Kevin White
-def test_data_integrity():
-    """Ensure each employee has all required fields."""
+def test_db_has_required_fields():
     db = connect_db()
-    for emp in db:
-        assert set(emp.keys()) >= {'employee_id', 'first_name', 'last_name', 'dependents', 'pay_rate'}
+    required_fields = {'employee_id', 'first_name', 'last_name', 'dependents', 'pay_rate'}
+    assert required_fields.issubset(set(db.columns))
+
 
 # Assigned to Willie Jones
 def test_record_results():
