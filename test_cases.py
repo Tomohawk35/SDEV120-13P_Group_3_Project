@@ -6,7 +6,8 @@ from unittest.mock import patch
 import pandas as pd
 
 # Import functions for testing
-from net_pay_calculator import employee_rate, calculate_gross_pay, calculate_net_pay, connect_db
+from net_pay_calculator import input_employee_data, calculate_gross_pay, calculate_net_pay, connect_db
+
 
 # Sample employee "database" used across tests
 emp_list = pd.DataFrame({
